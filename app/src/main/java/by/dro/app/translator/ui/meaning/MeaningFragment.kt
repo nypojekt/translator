@@ -65,6 +65,13 @@ class MeaningFragment : Fragment(R.layout.fragment_meaning) {
         fragment_meaning_update_date.text = meaning.updatedAt
         if (!meaning.images.isNullOrEmpty())  fragment_meaning_img.loadUrl(meaning.images[0].url)
 
+        fragment_meaning_transcription.visibility = View.VISIBLE
+        fragment_meaning_text.visibility = View.VISIBLE
+        fragment_meaning_translation.visibility = View.VISIBLE
+        fragment_meaning_update_date.visibility = View.VISIBLE
+        fragment_meaning_img.visibility = View.VISIBLE
+        fragment_meaning_play_sound.visibility = View.VISIBLE
+        fragment_meaning_progress.visibility = View.GONE
     }
 
     private fun observe(){
