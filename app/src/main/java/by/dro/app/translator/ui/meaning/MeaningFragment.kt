@@ -51,14 +51,15 @@ class MeaningFragment : Fragment(R.layout.fragment_meaning) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragment_meaning_play_sound.setOnClickListener {
-            meaningItem?.soundUrl?.also {
-                playAudio(it)
-            }
+             playAudio()
         }
     }
 
     private fun bind(meaning: Meaning){
         meaningItem = meaning
+
+        meaning.soundUrl?.also { prepareAudio(it) }
+        fragment_meaning_transcription.text = meaning.transcription
         fragment_meaning_text.text = meaning.text
         fragment_meaning_translation.text = meaning.translation?.text
         fragment_meaning_update_date.text = meaning.updatedAt
@@ -88,12 +89,24 @@ class MeaningFragment : Fragment(R.layout.fragment_meaning) {
 
         }
 
-    private fun playAudio(url: String) {
+    private fun playAudio() {
+        mediaPlayer?.start()
+        fragment_meaning_play_sound.setIconResource(R.drawable.ic_pause_24px)
+        fragment_meaning_play_sound.isEnabled = false
+    }
+
+
+    private fun prepareAudio(url: String){
         killMediaPlayer()
         mediaPlayer = MediaPlayer()
+        mediaPlayer?.setOnCompletionListener {
+            Log.d("kkk", "r?.setOnCompletionLi")
+            fragment_meaning_play_sound.setIconResource(R.drawable.ic_play_arrow_24px)
+            fragment_meaning_play_sound.isEnabled = true
+        }
         mediaPlayer?.setDataSource("https:$url")
         mediaPlayer?.prepare()
-        mediaPlayer?.start()
+        fragment_meaning_play_sound.isEnabled = true
     }
 
     private fun killMediaPlayer() {

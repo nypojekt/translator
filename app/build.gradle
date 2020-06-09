@@ -56,7 +56,8 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "androidx.paging:paging-runtime:$pagination_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-//    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    implementation "com.google.android.material:material:$material_version"
 
     // KOIN
     implementation "org.koin:koin-android:$koin_version"
